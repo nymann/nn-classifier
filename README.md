@@ -1,16 +1,12 @@
-# Basic image classification
-Based on https://github.com/tensorflow/docs/blob/master/site/en/tutorials/keras/classification.ipynb
-
+# Weeb image classifier
 ### Installation
-`git clone https://github.com/nymann/ai`
-`cd basic_image_classification`
+`git clone https://github.com/weeb-purger/nn/classifier`
+`cd nn-classifier`
 `python3 setup.py install`
 
 ### Run
-Synaptic weights are kept between runs, you have the following options:
+Model is stored in `/tmp/weeb_model`
 
-`bic` trains the neural network and solves the given problem
+`weeb image.png` trains the neural network if no model found in `/tmp/weeb_model`.
 
-`bic-train` trains the neural network.
-
-`bic-solve` solves a given problem using previously calculated synaptic weights.
+`weeb-train` trains the neural network if no model found in `/tmp/weeb_model`.
