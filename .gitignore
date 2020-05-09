@@ -1,3 +1,13 @@
+# Ide
+.idea/
+
+# dataset
+dataset
+weeb_classifier/weeb_model/
+
+# Pickle data
+simple_neural_net/synaptic_weights.p
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
