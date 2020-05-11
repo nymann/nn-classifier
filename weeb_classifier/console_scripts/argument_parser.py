@@ -14,9 +14,10 @@ def default() -> Namespace:
     # parser.add_argument('--plot', dest='plot', action='store_true')
     parser.add_argument('--separator', dest='separator', type=str,
                         help="Separator between output results (applicable if testing multiple "
-                             "images)", default=" ")
+                             "images), defaults to ' '.", default=" ")
     parser.add_argument('--confidence-level', dest='confidence_level', type=int,
-                        help="Only deem a picture weeby if confidence level is over this value.",
+                        help="Only deem a picture weeby if confidence level is over this value. "
+                             "Defaults to 500",
                         default=500)
     parser.set_defaults(feature=False)
     return parser.parse_args()
