@@ -1,6 +1,9 @@
+import logging
+
 import numpy
 from keras_preprocessing import image
 from matplotlib import pyplot
+
 from tensorflow import keras
 from tensorflow.keras.layers import Dense, Conv2D, Flatten, MaxPooling2D
 from tensorflow.keras.models import Sequential
@@ -18,17 +21,22 @@ class NeuralNetwork:
         self.img_size = 150
         self.model = self._get_model()
 
-    def train(self, td: TrainingData = None, epochs=5):
+    def train(self, td: TrainingData = None, epochs=20):
+        """
+        Args:
+            td (TrainingData):
+            epochs:
+        """
         if td is None:
             td = TrainingData("/home/knj/code/github/weeb-purger/nn-classifier/dataset/training",
                               "/home/knj/code/github/weeb-purger/nn-classifier/dataset/validation")
 
         history = self.model.fit(
             td.train_data_gen,
-            steps_per_epoch=50,  # td.total_training_images // td.batch_size,
+            steps_per_epoch=td.total_training_images // td.batch_size,
             epochs=epochs,
             validation_data=td.val_data_gen,
-            validation_steps=10  # td.total_validation_images // td.batch_size
+            validation_steps=td.total_validation_images // td.batch_size
         )
 
         acc = history.history['accuracy']
@@ -56,18 +64,22 @@ class NeuralNetwork:
         self.trained = True
 
     def solve(self, image_path: str):
+        """
+        Args:
+            image_path (str):
+        """
         if not self.trained:
             self.train()
         img = image.load_img(image_path, target_size=(self.img_size, self.img_size))
         img = image.img_to_array(img)
         img = numpy.expand_dims(img, axis=0)
-        pred = (self.model.predict(img) > 0.5).astype("int32")[0][0]
-        return CLASS_NAMES[pred]
+        pred = (self.model.predict(img) > 500).astype("int32")[0][0]
+        # return CLASS_NAMES[pred]
+        return pred
 
     def _get_model(self):
         try:
             model = keras.models.load_model("/tmp/weeb_model")
-            print("Previously trained model loaded.")
             self.trained = True
         except IOError:
             model = Sequential([

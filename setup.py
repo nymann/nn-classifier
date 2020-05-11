@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="weeb_classifier",
-    version="0.0.1",
+    version="0.0.3",
     author="Kristian Nymann Jakobsen",
     author_email="kristian@nymann.dev",
     description="Weeb image classification.",

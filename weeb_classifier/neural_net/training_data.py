@@ -8,6 +8,12 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 class TrainingData:
     def __init__(self, training_dir: str, validation_dir: str, img_size: int = 150):
+        """
+        Args:
+            training_dir (str):
+            validation_dir (str):
+            img_size (int):
+        """
         ImageFile.LOAD_TRUNCATED_IMAGES = True
         # The training data will take the form of [[img, label],[img, label]...]
         self.train_weeb_dir = os.path.join(training_dir, "weeb")
@@ -29,7 +35,7 @@ class TrainingData:
         print("Total validation not-weeb pics:", self.not_validation_pics)
 
         self.batch_size = 256
-        self.epochs = 10
+        self.epochs = 20
         self.img_height = img_size
         self.img_width = img_size
 
@@ -50,6 +56,7 @@ class TrainingData:
         self.val_data_gen = validation_image_generator.flow_from_directory(
             batch_size=self.batch_size,
             directory=validation_dir,
+            shuffle=True,
             target_size=(
                 self.img_height,
                 self.img_width),
@@ -60,6 +67,10 @@ class TrainingData:
         self.plot_images(sample_training_images[:5])
 
     def plot_images(self, images_arr):
+        """
+        Args:
+            images_arr:
+        """
         fig, axes = subplots(1, 5, figsize=(20, 20))
         axes = axes.flatten()
         for img, ax in zip(images_arr, axes):
