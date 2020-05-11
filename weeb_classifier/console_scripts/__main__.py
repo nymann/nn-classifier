@@ -17,7 +17,7 @@ def train():
 def solve():
     args = argument_parser.default()
     images = args.images
-    results = [str(NEURAL_NETWORK.solve(img)) for img in images]
+    results = [str(NEURAL_NETWORK.solve(img, args.confidence_level)) for img in images]
     print(str(args.separator).join(results))
 
 

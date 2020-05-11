@@ -1,9 +1,6 @@
-import logging
-
 import numpy
 from keras_preprocessing import image
 from matplotlib import pyplot
-
 from tensorflow import keras
 from tensorflow.keras.layers import Dense, Conv2D, Flatten, MaxPooling2D
 from tensorflow.keras.models import Sequential
@@ -63,17 +60,13 @@ class NeuralNetwork:
         self.model.save("/tmp/weeb_model")
         self.trained = True
 
-    def solve(self, image_path: str):
-        """
-        Args:
-            image_path (str):
-        """
+    def solve(self, image_path: str, confidence_level: int = 500):
         if not self.trained:
             self.train()
         img = image.load_img(image_path, target_size=(self.img_size, self.img_size))
         img = image.img_to_array(img)
         img = numpy.expand_dims(img, axis=0)
-        pred = (self.model.predict(img) > 500).astype("int32")[0][0]
+        pred = (self.model.predict(img) > confidence_level).astype("int32")[0][0]
         # return CLASS_NAMES[pred]
         return pred
 
