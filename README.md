@@ -1,12 +1,31 @@
 # Weeb image classifier
-### Installation
-`git clone https://github.com/weeb-purger/nn/classifier`
-`cd nn-classifier`
-`python3 setup.py install`
 
-### Run
-Model is stored in `/tmp/weeb_model`, instead of training the model yourself download it from: https://github.com/weeb-purger/nn-classifier/releases/tag/0.0.1
+# Model Installation
+Head over to our [release page](https://github.com/weeb-purger/nn-classifier/releases), and download the latest model.
 
-`weeb image.png` trains the neural network if no model found in `/tmp/weeb_model`.
+`tar xf weeb_model-003.tar.gz /tmp/weeb_model`
 
-`weeb-train` trains the neural network if no model found in `/tmp/weeb_model`.
+# Python package installation
+`pip install git+https://github.com/weeb-purger/nn-classifier.git`
+
+# How to use
+
+```
+> weeb -h                                                                                                                                                                                           
+usage: weeb [-h] [--separator SEPARATOR] [--confidence-level CONFIDENCE_LEVEL] I [I ...]
+
+positional arguments:
+  I                     One or more images to test.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --separator SEPARATOR
+                        Separator between output results (applicable if testing multiple images), defaults to ' '.
+  --confidence-level CONFIDENCE_LEVEL
+                        Only deem a picture weeby if confidence level is over this value. Defaults to 500
+```
+
+## Example usage
+```
+> weeb --separator ';' another-weeb.png not-weeb-1.png                                                                                                                                             1;0
+```
