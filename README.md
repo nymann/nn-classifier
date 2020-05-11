@@ -1,4 +1,5 @@
 # Weeb image classifier
+Given a picture (or multiple) the weeb image classifier, deems if the picture is of a weeabo character.
 
 ## Model Installation
 Head over to our [release page](https://github.com/weeb-purger/nn-classifier/releases), and download the latest model.
