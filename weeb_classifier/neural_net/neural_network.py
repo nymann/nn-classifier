@@ -1,3 +1,5 @@
+import os
+
 import numpy
 from keras_preprocessing import image
 from matplotlib import pyplot
@@ -18,15 +20,10 @@ class NeuralNetwork:
         self.img_size = 150
         self.model = self._get_model()
 
-    def train(self, td: TrainingData = None, epochs=20):
-        """
-        Args:
-            td (TrainingData):
-            epochs:
-        """
+    def train(self, td: TrainingData = None, epochs=20, training_dir: str = None,
+              validation_dir: str = None):
         if td is None:
-            td = TrainingData("/home/knj/code/github/weeb-purger/nn-classifier/dataset/training",
-                              "/home/knj/code/github/weeb-purger/nn-classifier/dataset/validation")
+            td = TrainingData(training_dir=training_dir, validation_dir=validation_dir)
 
         history = self.model.fit(
             td.train_data_gen,
@@ -62,7 +59,8 @@ class NeuralNetwork:
 
     def solve(self, image_path: str, confidence_level: int = 500):
         if not self.trained:
-            self.train()
+            self.train(training_dir=os.environ["TRAINING_DIR"], validation_dir=os.environ[
+                "VALIDATION_DIR"])
         img = image.load_img(image_path, target_size=(self.img_size, self.img_size))
         img = image.img_to_array(img)
         img = numpy.expand_dims(img, axis=0)
